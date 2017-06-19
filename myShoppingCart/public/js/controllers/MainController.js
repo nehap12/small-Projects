@@ -7,6 +7,15 @@ angular.module('myApp')
         $scope.showProducts = true;
         $scope.message = "Loading...";
 
+        var user =  {};
+
+        $scope.init = function (userData) {
+
+            user = JSON.parse(userData);
+            $scope.isAdmin = user.admin;
+
+        };
+
         MainService.getProducts().then(function (products) {
 
             $scope.products = products.data.data;
@@ -30,9 +39,26 @@ angular.module('myApp')
 
             MainService.addProduct(product);
             $scope.closeSidebar();
+            MainService.getProducts().then(function (products) {
+
+                $scope.products = products.data.data;
+
+            });
 
         };
 
+
+        $scope.removeProduct = function (product) {
+
+                var productID = product._id;
+                MainService.deleteProduct(productID);
+                MainService.getProducts().then(function (products) {
+
+                    $scope.products = products.data.data;
+
+                });
+
+        };
 
 
 

@@ -31,7 +31,7 @@
 <md-toolbar>
  <div class="md-toolbar-tools">
   <p><strong>Shopping Cart</strong></p>
-  <md-button ng-click="openSidebar()">
+  <md-button ng-click="openSidebar()" ng-if="isAdmin">
    <md-icon class="mdi mdi-plus-circle"></md-icon>
    Add New Product
   </md-button>
@@ -48,7 +48,6 @@
   <md-button ng-href="/logout">
    Logout
   </md-button>
-  <!--<a href="/logout" class="btn btn-primary">Logout</a>-->
  </div>
 </md-toolbar>
 
@@ -99,32 +98,30 @@
  </md-content>
 </md-sidenav>
 
+<div ng-init="init('<%= user %>')"></div>
 
 <md-content class="md-padding" layout="row" layout-wrap>
  <md-card flex="30" ng-repeat="product in products">
   <img ng-src="./img/dummyProduct.jpg">
   <md-card-content>
-   <div class="product-info" ng-show="!showContact">
+   <div class="product-info">
     <h2 class="md-title">{{ product.title }}</h2>
     <h3>{{ product.price | currency }}</h3>
     <p>{{ product.description }}</p>
-    <h2>{{ product.qty }}</h2>
+    <h2 ng-if="isAdmin">Qty: {{ product.qty }}</h2>
    </div>
-    <md-button ng-click="showAdmin = true" ng-hide="showAdmin">Admin</md-button>
-    <md-button ng-click="showAdmin = false" ng-hide="!showAdmin">Close</md-button>
+   <br>
    </div>
-   <div class="product-admin" ng-if="showAdmin">
-    <h3>Admin</h3>
+   <div class="product-admin" ng-if="isAdmin">
+    <hr>
     <div layout="row">
      <md-button class="md-primary">Edit</md-button>
-     <md-button class="md-warn">Delete</md-button>
+     <md-button class="md-warn" ng-click="removeProduct(product)">Delete</md-button>
     </div>
    </div>
   </md-card-content>
  </md-card>
 </md-content>
-
-
 
 
 </body>

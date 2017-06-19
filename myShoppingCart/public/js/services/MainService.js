@@ -22,12 +22,19 @@ angular.module('myApp')
             });
         };
 
-        this.updateProduct = function (product) {
+        this.updateProduct = function (productID) {
 
         };
 
         this.deleteProduct = function (productID) {
-            $http.delete(productID);
+            $http({
+                url: baseURL+'products/'+productID,
+                method: 'DELETE'
+            }).then(function (res) {
+                console.log(res.data);
+            }, function (error) {
+                console.log(error);
+            });
         }
 
 }]);

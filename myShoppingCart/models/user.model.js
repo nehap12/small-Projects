@@ -22,8 +22,8 @@ var userSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    userType: {
-        type: Number
+    admin: {
+        type: Boolean
     }
 });
 

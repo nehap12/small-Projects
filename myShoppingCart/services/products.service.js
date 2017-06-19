@@ -12,7 +12,11 @@ module.exports ={
 
     getProducts: function (callback) {
 
-        products.find(callback);
+        var query = {
+            is_displayed: true
+        };
+
+        products.find(query, callback);
 
     },
 
