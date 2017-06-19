@@ -1,0 +1,10 @@
+body {
+    padding-top:80px;
+    background-color: #FFF;
+}
+.jumbotron {
+    background-color: #fff;
+    width: 800px;
+    length: 800px;
+    margin-left: 150px;
+}
