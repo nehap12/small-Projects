@@ -1,4 +1,4 @@
-#Eventapture App Tool
+#Shopping Cart
 
 #Steps to setup
 
@@ -12,7 +12,7 @@
 - In the same bin folder, run `./mongo` ( this needs to be done on a separate terminal than the previous `mongod` terminal)
 - On the `mongo` terminal, run following commands :
 
-> `use eventapture-admin`
+> `use shoppingCart`
 
 
 - Go back to the node project and run the project normally by
