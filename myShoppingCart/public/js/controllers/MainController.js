@@ -38,7 +38,14 @@ angular.module('myApp')
         $scope.addProduct = function (product) {
 
             MainService.addProduct(product);
+
+         /*   document.getElementById("title").value = "";
+            document.getElementById("price").value = "";
+            document.getElementById("description").value = "";
+            document.getElementById("quantity").value = "";*/
+
             $scope.closeSidebar();
+
             MainService.getProducts().then(function (products) {
 
                 $scope.products = products.data.data;
@@ -57,6 +64,13 @@ angular.module('myApp')
                     $scope.products = products.data.data;
 
                 });
+
+        };
+
+
+        $scope.addQuantity = function () {
+
+
 
         };
 

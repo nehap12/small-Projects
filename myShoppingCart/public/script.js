@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('myApp', ['ngRoute','ngMaterial']);
+var app = angular.module('myApp', ['ngRoute','ngMaterial','ngMessages']);
 
 app.config(function ($mdThemingProvider) {
 
