@@ -14,6 +14,7 @@
    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-aria.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-route.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-messages/1.4.0/angular-messages.js"></script>
+   <script src="https://rawgit.com/dwmkerr/angular-modal-service/master/dst/angular-modal-service.js"></script>
 
    <!--Angular Custom Files-->
    <script src="script.js"></script>
@@ -115,39 +116,46 @@
 
 <div ng-init="init('<%= user %>')"></div>
 
-<md-content class="md-padding" layout="row" layout-wrap>
- <md-card flex="30" ng-repeat="product in products">
+<!--Cards displaying all the products-->
+
+<md-content class="md-padding marginLeft" layout="row" layout-wrap>
+ <md-card flex-xs flex-gt-xs="20" ng-repeat="product in products">
   <img ng-src="./img/dummyProduct.jpg">
   <md-card-content>
    <div class="product-info">
     <h2 ng-hide="product.isEditable" class="md-title">{{ product.title }}</h2>
     <div ng-show="product.isEditable">
-     <h3>Title: </h3>
+     <h4>Title: </h4>
      <input name="title" ng-model="product.title" type="text">
-    </div>
-    <h3 ng-hide="product.isEditable">{{ product.price | currency }}</h3>
-    <div ng-show="product.isEditable">
-     <h3>Price: </h3>
-     <input name="price" ng-model="product.price" type="text">
     </div>
     <p ng-hide="product.isEditable">{{ product.description }}</p>
     <div ng-show="product.isEditable">
-     <h3>Description: </h3>
+     <h4>Description: </h4>
      <input name="description" ng-model="product.description" type="text">
     </div>
-    <div ng-if="isAdmin" >
-     <h2 ng-hide="product.isEditable">Qty: {{ product.qty }}</h2>
-     <div ng-show="product.isEditable">
-     <h3>Quantity: </h3>
-     <input ng-show="product.isEditable" name="quantity" ng-model="product.qty" type="text">
+    <div class="row">
+     <div class="col-xs-6">
+      <h5 ng-hide="product.isEditable">{{ product.price | currency }}</h5>
+      <div ng-show="product.isEditable">
+       <h4>Price: </h4>
+       <input name="price" ng-model="product.price" type="text" style="width: 100px;">
+      </div>
+     </div>
+     <div class="col-xs-6">
+      <div ng-if="isAdmin" >
+       <h5 ng-hide="product.isEditable">Qty: {{ product.qty }}</h5>
+       <div ng-show="product.isEditable">
+        <h4>Quantity: </h4>
+        <input ng-show="product.isEditable" name="quantity" ng-model="product.qty" type="text" style="width: 100px;">
+       </div>
+      </div>
      </div>
     </div>
-   <br>
    </div>
    <div class="product-admin">
     <hr>
     <div layout="row">
-     <md-button class="md-primary" ng-click="addToCart()">Add to Cart</md-button>
+     <md-button class="md-primary" ng-click="addToCart(product)">Add to Cart</md-button>
     </div>
     <div layout="row" ng-if="isAdmin" >
      <md-button class="md-primary" ng-click="makeEditable(product)" ng-hide="product.isEditable">Edit</md-button>

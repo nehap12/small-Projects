@@ -2,14 +2,13 @@
 
 angular.module('myApp')
 
-    .controller('MainController', ['$scope', '$http', '$location', 'MainService', '$mdSidenav', function($scope, $http, $location, MainService, $mdSidenav){
+    .controller('MainController', ['$scope', '$http', '$location', 'MainService', '$mdSidenav', '$mdDialog', function($scope, $http, $location, MainService, $mdSidenav, $mdDialog){
 
         $scope.showProducts = true;
-        $scope.message = "Loading...";
 
-         var isEditable = false;
-
+        //var isEditable = false;
         var user =  {};
+        var productList = {};
 
         $scope.init = function (userData) {
 
@@ -87,7 +86,44 @@ angular.module('myApp')
 
         $scope.addToCart = function (product) {
 
+            var quantityDialog = $mdDialog.prompt()
+                .title('Enter quantity')
+                .initialValue('1')
+                .placeholder('Product Quantity')
+                .ariaLabel('Product Quantity')
+                .ok('Ok')
+                .cancel('Cancel');
 
+            var qty = 0;
+
+            $mdDialog.show(quantityDialog).then(function (result) {
+
+                qty = parseInt( result );
+                var found = false;
+                for(var prodId in productList) {
+
+                    var prod = productList[prodId];
+                    if (prodId === product._id) {
+                        prod.orderedQuantity += qty;
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found)
+                {
+                    var prod = {};
+                    prod._id = product._id;
+                    prod.title = product.title;
+                    prod.description = product.description;
+                    prod.price = product.price;
+                    prod.qty = product.qty;
+                    prod.orderedQuantity = qty;
+                    productList[prod._id] = prod;
+                }
+
+                console.log (productList);
+            })
 
         };
 

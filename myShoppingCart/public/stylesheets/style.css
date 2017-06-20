@@ -5,3 +5,8 @@ button .material-icons {
 .rightAlign {
   flex: 1 1 auto;
 }
+
+.marginLeft {
+   margin-left: 160px;
+   background-color: #fff;
+}
