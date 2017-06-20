@@ -31,6 +31,10 @@ var productsSchema = Schema({
     is_displayed: {
         type: Boolean,
         required: true
+    },
+    editable: {
+        type: Boolean,
+        required: true
     }
 });
 

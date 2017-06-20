@@ -27,7 +27,8 @@ module.exports ={
             description : product.description,
             price : product.price,
             qty : product.qty,
-            is_displayed: true
+            is_displayed: true,
+            editable: false
         };
 
         products.create(query, callback);

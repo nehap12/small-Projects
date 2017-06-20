@@ -6,10 +6,13 @@ angular.module('myApp')
     .service('MainService', ['$http', 'baseURL', function($http, baseURL) {
 
         this.getProducts = function () {
+
            return $http.get(baseURL+'products');
+
         };
 
         this.addProduct = function (product) {
+
             $http({
                 url: baseURL+'products',
                 method: 'POST',
@@ -20,13 +23,26 @@ angular.module('myApp')
             }, function (res) {
                 console.log(error);
             });
+
         };
 
-        this.updateProduct = function (productID) {
+        this.updateProduct = function (productID, product) {
+
+            $http({
+                url: baseURL+'products/'+productID,
+                method: 'PATCH',
+                data: product,
+                headers: {'Content-Type': 'application/json'}
+            }).then(function (res) {
+                console.log(res.data);
+            }, function (res) {
+                console.log(error);
+            });
 
         };
 
         this.deleteProduct = function (productID) {
+
             $http({
                 url: baseURL+'products/'+productID,
                 method: 'DELETE'
@@ -35,6 +51,7 @@ angular.module('myApp')
             }, function (error) {
                 console.log(error);
             });
+
         }
 
 }]);

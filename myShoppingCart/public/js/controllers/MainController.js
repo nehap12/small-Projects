@@ -7,6 +7,8 @@ angular.module('myApp')
         $scope.showProducts = true;
         $scope.message = "Loading...";
 
+         var isEditable = false;
+
         var user =  {};
 
         $scope.init = function (userData) {
@@ -39,11 +41,6 @@ angular.module('myApp')
 
             MainService.addProduct(product);
 
-         /*   document.getElementById("title").value = "";
-            document.getElementById("price").value = "";
-            document.getElementById("description").value = "";
-            document.getElementById("quantity").value = "";*/
-
             $scope.closeSidebar();
 
             MainService.getProducts().then(function (products) {
@@ -68,12 +65,31 @@ angular.module('myApp')
         };
 
 
-        $scope.addQuantity = function () {
+        $scope.makeEditable = function(product) {
+
+            product.isEditable = true;
+
+        };
+
+        $scope.saveProduct = function(product) {
+
+            var productID = product._id;
+            MainService.updateProduct(productID, product);
+            product.isEditable = false;
+
+        };
+
+        $scope.cancel = function(product) {
+
+            product.isEditable = false;
+
+        };
+
+        $scope.addToCart = function (product) {
 
 
 
         };
-
 
 
     }]);

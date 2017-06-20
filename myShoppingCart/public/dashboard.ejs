@@ -120,18 +120,39 @@
   <img ng-src="./img/dummyProduct.jpg">
   <md-card-content>
    <div class="product-info">
-    <h2 class="md-title">{{ product.title }}</h2>
-    <h3>{{ product.price | currency }}</h3>
-    <p>{{ product.description }}</p>
-    <h2 ng-if="isAdmin">Qty: {{ product.qty }}</h2>
-   </div>
+    <h2 ng-hide="product.isEditable" class="md-title">{{ product.title }}</h2>
+    <div ng-show="product.isEditable">
+     <h3>Title: </h3>
+     <input name="title" ng-model="product.title" type="text">
+    </div>
+    <h3 ng-hide="product.isEditable">{{ product.price | currency }}</h3>
+    <div ng-show="product.isEditable">
+     <h3>Price: </h3>
+     <input name="price" ng-model="product.price" type="text">
+    </div>
+    <p ng-hide="product.isEditable">{{ product.description }}</p>
+    <div ng-show="product.isEditable">
+     <h3>Description: </h3>
+     <input name="description" ng-model="product.description" type="text">
+    </div>
+    <div ng-if="isAdmin" >
+     <h2 ng-hide="product.isEditable">Qty: {{ product.qty }}</h2>
+     <div ng-show="product.isEditable">
+     <h3>Quantity: </h3>
+     <input ng-show="product.isEditable" name="quantity" ng-model="product.qty" type="text">
+     </div>
+    </div>
    <br>
    </div>
    <div class="product-admin">
     <hr>
     <div layout="row">
-     <md-button class="md-primary" ng-click="addQuantity()">Add to Cart</md-button>
-     <md-button class="md-primary" ng-if="isAdmin">Edit</md-button>
+     <md-button class="md-primary" ng-click="addToCart()">Add to Cart</md-button>
+    </div>
+    <div layout="row" ng-if="isAdmin" >
+     <md-button class="md-primary" ng-click="makeEditable(product)" ng-hide="product.isEditable">Edit</md-button>
+     <md-button class="md-primary" ng-click="saveProduct(product)" ng-hide="!product.isEditable">Save</md-button>
+     <md-button class="md-primary" ng-click="cancel(product)" ng-hide="!product.isEditable">Cancel</md-button>
      <md-button class="md-warn" ng-click="removeProduct(product)"  ng-if="isAdmin">Delete</md-button>
     </div>
    </div>
