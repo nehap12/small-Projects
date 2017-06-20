@@ -25,6 +25,7 @@ module.exports ={
         var query = {
             title : product.title,
             description : product.description,
+            image: product.image,
             price : product.price,
             qty : product.qty,
             is_displayed: true,
@@ -46,6 +47,7 @@ module.exports ={
             $set: {
                 title: product.title,
                 description: product.description,
+                image: product.image,
                 price: product.price,
                 qty: product.qty
             }

@@ -83,9 +83,9 @@
     <label for="description">Description</label>
     <textarea type="text" id="description"
               ng-model="product.description"  md-no-asterisk name="description"  required>
-     <div ng-messages="addProductForm.description.$error">
-      <div ng-message="required">Please enter a valid description.</div>
-     </div>
+      <div ng-messages="addProductForm.description.$error">
+     <div ng-message="required">Please enter a valid description.</div>
+    </div>
     </textarea>
    </md-input-container>
    <md-input-container>
@@ -98,11 +98,14 @@
     </div>
     </input>
    </md-input-container>
-  <!-- <md-input-container>
+   <md-input-container>
     <label for="image">Image Link</label>
-    <input type="text" id="image"
-           ng-model="product.image">
-   </md-input-container>-->
+    <input type="url" id="image"
+           ng-model="product.image" md-no-asterisk name="image" ng-pattern="/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/"  required>
+    <div ng-messages="addProductForm.image.$error">
+     <div ng-message="required">Please enter a valid image link.</div>
+    </div>
+   </md-input-container>
    <br>
    <md-button ng-click="addProduct(product)" ng-disabled="addProductForm.$invalid" class="md-primary">
     Add
@@ -120,7 +123,7 @@
 
 <md-content class="md-padding marginLeft" layout="row" layout-wrap>
  <md-card flex-xs flex-gt-xs="20" ng-repeat="product in products">
-  <img ng-src="./img/dummyProduct.jpg">
+  <img ng-src="{{ product.image }}">
   <md-card-content>
    <div class="product-info">
     <h2 ng-hide="product.isEditable" class="md-title">{{ product.title }}</h2>
@@ -133,6 +136,10 @@
      <h4>Description: </h4>
      <input name="description" ng-model="product.description" type="text">
     </div>
+    <!--<div ng-show="product.isEditable">
+     <h4>Image URL: </h4>
+     <input name="image" ng-model="product.image" type="url">
+    </div>-->
     <div class="row">
      <div class="col-xs-6">
       <h5 ng-hide="product.isEditable">{{ product.price | currency }}</h5>
@@ -155,13 +162,13 @@
    <div class="product-admin">
     <hr>
     <div layout="row">
-     <md-button class="md-primary" ng-click="addToCart(product)">Add to Cart</md-button>
+     <md-button class="md-primary" ng-hide="product.isEditable" ng-click="addToCart(product)">Add to Cart</md-button>
     </div>
     <div layout="row" ng-if="isAdmin" >
      <md-button class="md-primary" ng-click="makeEditable(product)" ng-hide="product.isEditable">Edit</md-button>
      <md-button class="md-primary" ng-click="saveProduct(product)" ng-hide="!product.isEditable">Save</md-button>
      <md-button class="md-primary" ng-click="cancel(product)" ng-hide="!product.isEditable">Cancel</md-button>
-     <md-button class="md-warn" ng-click="removeProduct(product)"  ng-if="isAdmin">Delete</md-button>
+     <md-button class="md-warn" ng-click="removeProduct(product)"  ng-hide="product.isEditable">Delete</md-button>
     </div>
    </div>
   </md-card-content>
