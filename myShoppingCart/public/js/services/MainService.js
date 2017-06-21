@@ -52,6 +52,19 @@ angular.module('myApp')
                 console.log(error);
             });
 
-        }
+        };
+
+        var msg;
+        this.sendList = function (message) {
+
+            msg = message;
+            console.log("Message from service: "+msg);
+        };
+
+        this.getList = function () {
+
+            return msg;
+
+        };
 
 }]);
