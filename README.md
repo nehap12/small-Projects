@@ -1,1 +1,1 @@
-# This is repository for small projects
+# This is a repository for small projects
